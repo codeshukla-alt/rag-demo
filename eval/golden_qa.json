@@ -1,0 +1,27 @@
+[
+  {
+    "question": "What is RAG and why is it used?",
+    "reference": "RAG (Retrieval-Augmented Generation) grounds an LLM in external knowledge by retrieving relevant documents and passing them as context. It is used to reduce hallucination, avoid staleness (update the knowledge base without retraining), and enable source attribution.",
+    "expected_keywords": ["retrieval", "context", "hallucination", "attribution"]
+  },
+  {
+    "question": "What are the main stages of a RAG pipeline?",
+    "reference": "Ingestion (load and chunk documents), embedding (convert chunks to vectors), indexing (store vectors in a vector DB), retrieval (embed the question and find top-k similar chunks), and generation (prompt the LLM with retrieved context to answer with citations).",
+    "expected_keywords": ["ingestion", "embedding", "retrieval", "generation"]
+  },
+  {
+    "question": "Why is chunking with overlap used?",
+    "reference": "Chunking splits long documents into smaller passages for precise retrieval; overlap (e.g., 120 characters) ensures sentences spanning a chunk boundary are not lost. Smaller chunks improve precision while larger chunks preserve more context.",
+    "expected_keywords": ["overlap", "boundary", "precision"]
+  },
+  {
+    "question": "What is LLM-as-judge and what are its limitations?",
+    "reference": "LLM-as-judge uses a strong LLM to score another model's output against a reference or rubric (e.g., faithfulness, relevance). Limitations include position bias, verbosity bias, and self-preference; mitigations include randomizing order, using rubrics, and calibrating against human labels.",
+    "expected_keywords": ["judge", "faithfulness", "bias", "rubric"]
+  },
+  {
+    "question": "Which metrics matter for evaluating a RAG system?",
+    "reference": "Faithfulness/groundedness, answer relevance, context precision and recall, and retrieval hit rate.",
+    "expected_keywords": ["faithfulness", "relevance", "precision", "retrieval"]
+  }
+]
