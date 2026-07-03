@@ -6,6 +6,7 @@ from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 
 from . import config
+from .agent import Agent
 from .rag import RAGPipeline
 from .vectorstore import VectorStore
 
@@ -63,6 +64,51 @@ def ask(req: AskRequest) -> AskResponse:
     return AskResponse(
         question=result.question,
         answer=result.answer,
+        sources=[
+            Source(
+                source=s.source,
+                chunk_id=s.chunk_id,
+                score=round(s.score, 4),
+                preview=s.text[:200],
+            )
+            for s in result.sources
+        ],
+    )
+
+
+class AgentStepModel(BaseModel):
+    thought: str
+    tool: str
+    tool_input: str
+    observation: str
+
+
+class AgentResponse(BaseModel):
+    question: str
+    answer: str
+    steps: list[AgentStepModel]
+    sources: list[Source]
+
+
+@app.post("/agent", response_model=AgentResponse)
+def agent(req: AskRequest) -> AgentResponse:
+    """Run the ReAct tool-calling agent, which decides when to search the KB."""
+    if not req.question.strip():
+        raise HTTPException(status_code=400, detail="question must not be empty")
+    _get_pipeline()  # ensure the index exists (raises 503 otherwise)
+    result = Agent().run(req.question)
+    return AgentResponse(
+        question=result.question,
+        answer=result.answer,
+        steps=[
+            AgentStepModel(
+                thought=s.thought,
+                tool=s.tool,
+                tool_input=s.tool_input,
+                observation=s.observation,
+            )
+            for s in result.steps
+        ],
         sources=[
             Source(
                 source=s.source,
