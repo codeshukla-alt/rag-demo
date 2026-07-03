@@ -58,7 +58,7 @@ uvicorn ragdemo.api:app --reload --app-dir src
 #   POST http://localhost:8000/ask/stream  (Server-Sent Events)
 
 # 6) Evaluate answer quality (LLM-as-judge)
-python -m ragdemo.evaluate --golden eval/golden_qa.json
+python scripts/evaluate.py --golden eval/golden_qa.json
 ```
 
 ## Configuration (`.env`)

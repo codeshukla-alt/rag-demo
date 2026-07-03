@@ -21,8 +21,8 @@ GOOGLE_API_KEY = _get("GOOGLE_API_KEY")
 
 OPENAI_CHAT_MODEL = _get("OPENAI_CHAT_MODEL", "gpt-4o-mini")
 OPENAI_EMBED_MODEL = _get("OPENAI_EMBED_MODEL", "text-embedding-3-small")
-GEMINI_CHAT_MODEL = _get("GEMINI_CHAT_MODEL", "gemini-1.5-flash")
-GEMINI_EMBED_MODEL = _get("GEMINI_EMBED_MODEL", "text-embedding-004")
+GEMINI_CHAT_MODEL = _get("GEMINI_CHAT_MODEL", "gemini-2.5-flash")
+GEMINI_EMBED_MODEL = _get("GEMINI_EMBED_MODEL", "gemini-embedding-001")
 LOCAL_EMBED_MODEL = _get("LOCAL_EMBED_MODEL", "sentence-transformers/all-MiniLM-L6-v2")
 
 CHUNK_SIZE = int(_get("CHUNK_SIZE", "800"))
